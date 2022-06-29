@@ -1,45 +1,54 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import "./App.css";
+import Display from "./component/Display/Display";
+import Button from "./component/Button/Button";
+import { useState } from "react";
+import { calculate } from "./Logic/Operatios";
+import { evaluate } from "mathjs";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [displayInfo, setDisplayInfo] = useState("");
+
+  const handleClickOperation = (e) => {
+    setDisplayInfo(displayInfo + e.target.value);
+  };
+
+  const handleClickEqualOperation = (e) => {
+    setDisplayInfo(evaluate(displayInfo));
+  };
+
+  const handleClickClearDisplay = (e) => {
+    setDisplayInfo("");
+  };
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+      <h1>Calaculadora</h1>
+      <div className="container-frame">
+        <div className="container-display">
+          <Display value={displayInfo}></Display>
+        </div>
+        <div className="container-buttons">
+          <Button value={7} event={handleClickOperation}></Button>
+          <Button value={8} event={handleClickOperation}></Button>
+          <Button value={9} event={handleClickOperation}></Button>
+          <Button value={"/"} event={handleClickOperation}></Button>
+          <Button value={4} event={handleClickOperation}></Button>
+          <Button value={5} event={handleClickOperation}></Button>
+          <Button value={6} event={handleClickOperation}></Button>
+          <Button value={"*"} event={handleClickOperation}></Button>
+          <Button value={1} event={handleClickOperation}></Button>
+          <Button value={2} event={handleClickOperation}></Button>
+          <Button value={3} event={handleClickOperation}></Button>
+          <Button value={"*"} event={handleClickOperation}></Button>
+          <Button value={"0"} event={handleClickOperation}></Button>
+          <Button value={"."} event={handleClickOperation}></Button>
+          <Button value={"="} event={handleClickEqualOperation}></Button>
+          <Button value={"+"} event={handleClickOperation}></Button>
+          <Button value={"Clear"} event={handleClickClearDisplay}></Button>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
